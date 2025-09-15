@@ -1,0 +1,5 @@
+# OpenAI Python client library for OpenAI-compatible endpoints
+openai>=1.0.0
+
+# Optional: For better environment variable handling
+python-dotenv>=1.0.0
