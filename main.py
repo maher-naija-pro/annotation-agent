@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
- python main.py Main script to connect to LLM server and interact with gpt-oss:20b model.
+ python main.py Main script to connect to LLM server and interact with Qwen 2.5 VL model.
 This script uses the simplified client configuration with default endpoint IP 148.253.83.132.
+Updated to use Qwen 2.5 VL (Vision-Language) model for enhanced multimodal capabilities.
 """
 
 from client.llm_client import create_client, simple_query, get_config
@@ -13,6 +14,7 @@ def main():
     """
     Main function to run the LLM client application.
     Uses the simplified configuration with default endpoint IP 148.253.83.132.
+    Updated to use Qwen 2.5 VL model for enhanced multimodal capabilities.
     """
     print("=" * 60)
     print("🤖 LLM Client Application")
@@ -31,7 +33,7 @@ def main():
         
         print(f"✅ Connected to LLM server:")
         print(f"   Endpoint: {config['endpoint_url']}")
-        print(f"   Model: {config['model_name']}")
+        print(f"   Model: {config['model_name']} (Qwen 2.5 VL - Vision-Language)")
         print(f"   API Key: {'Set' if config['api_key'] else 'Not required (default endpoint)'}")
         print()
 

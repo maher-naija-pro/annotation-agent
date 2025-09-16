@@ -113,13 +113,14 @@ def simple_query(client: OpenAI, model_name: str, prompt: str, **kwargs) -> str:
 def get_config() -> Dict[str, str]:
     """
     Get configuration with default endpoint IP 148.253.83.132.
+    Updated to use Qwen 2.5 VL model.
     
     Returns:
         Dict containing endpoint_url, model_name, and api_key
     """
     return {
         'endpoint_url': os.getenv('LLM_ENDPOINT_URL', 'http://148.253.83.132:11434/v1'),
-        'model_name': os.getenv('LLM_MODEL_NAME', 'gpt-oss:20b'),
+        'model_name': os.getenv('LLM_MODEL_NAME', 'qwen2.5vl:32b'),
         'api_key': os.getenv('OPENAI_API_KEY')
     }
 

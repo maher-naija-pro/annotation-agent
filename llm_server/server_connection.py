@@ -15,12 +15,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'client'))
 from llm_client import create_client, simple_query
 
 
-def setup_inference_server_connection(model_name: str = "gpt-oss:20b") -> Dict[str, Any]:
+def setup_inference_server_connection(model_name: str = "qwen2.5-vl:32b") -> Dict[str, Any]:
     """
     Setup connection to the inference server at 148.253.83.132.
+    Updated to use Qwen 2.5 VL model by default.
 
     Args:
-        model_name: Name of the model to use (default: "gpt-oss:20b")
+        model_name: Name of the model to use (default: "qwen2.5-vl:32b")
 
     Returns:
         Dict containing client and configuration information
