@@ -15,16 +15,18 @@ from llm_client import create_client, simple_query
 
 
 
-def setup_ollama_connection() -> Dict[str, Any]:
+def setup_ollama_connection(model_name: str = "gpt-oss:20b") -> Dict[str, Any]:
     """
     Setup connection to the Ollama server at 148.253.83.132.
-    
+
+    Args:
+        model_name: Name of the model to use (default: "gpt-oss:20b")
+
     Returns:
         Dict containing client and configuration information
     """
     # Configure for Ollama server - using the exact endpoint that works with curl
     endpoint_url = "http://148.253.83.132:11434/v1"  # OpenAI-compatible endpoint
-    model_name = "gpt-oss:20b"
     api_key = ""  # Empty string for Ollama (no API key required)
     
     print(f"Connecting to Ollama server...")
@@ -85,19 +87,21 @@ def run_single_query(connection_info: Dict[str, Any]):
 def main():
     """
     Main function to run the Ollama client application.
+
+    Args:
+        model_name: Name of the model to use (default: "gpt-oss:20b")
     """
     print("=" * 60)
-    print("Ollama GPT-OSS:20B Client Application")
-    print("=" * 60)
-    
+
+
     try:
-        # Setup connection
-        connection_info = setup_ollama_connection()
-        
-        
+        # Setup connection with specified model
+        connection_info = setup_ollama_connection("gpt-oss:20b")
+
+
         # Run single query
         run_single_query(connection_info)
-                
+
     except Exception as e:
         print(f"Application error: {str(e)}")
         print("Please check your configuration and try again.")
