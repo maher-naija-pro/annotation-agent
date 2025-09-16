@@ -29,7 +29,7 @@ def setup_ollama_connection(model_name: str = "gpt-oss:20b") -> Dict[str, Any]:
     endpoint_url = "http://148.253.83.132:11434/v1"  # OpenAI-compatible endpoint
     api_key = ""  # Empty string for Ollama (no API key required)
     
-    print(f"Connecting to Ollama server...")
+    print(f"Connecting to Ollama server with model '{model_name}'...")
 
     
     # Create the client with proper API key handling for Ollama
@@ -96,11 +96,11 @@ def main():
 
     try:
         # Setup connection with specified model
-        connection_info = setup_ollama_connection("gpt-oss:20b")
-
+        connection_gpt = setup_ollama_connection("gpt-oss:20b")
+        connection_vl = setup_ollama_connection("qwen2.5vl:32b")
 
         # Run single query
-        run_single_query(connection_info)
+        run_single_query(connection_gpt)
 
     except Exception as e:
         print(f"Application error: {str(e)}")
