@@ -1,0 +1,23 @@
+```markdown
+# SUSTAINABILITY DISCLOSURE TOPICS & METRICS
+
+## Table 1. Sustainability Disclosure Topics & Metrics
+
+| TOPIC                                                                                      | METRIC                                                                                                                                                                               | CATEGORY                | UNIT OF MEASURE         | CODE         |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | ----------------------- | ------------ |
+| **Transparent Information & Fair Advice for Customers**                                    | Total amount of monetary losses as a result of legal proceedings associated with marketing and communication of insurance product-related information to new and returning customers | Quantitative            | Presentation currency   | FN-IN-270a.1 |
+|                                                                                            | Complaints-to-claims ratio                                                                                                                                                           | Quantitative            | Rate                    | FN-IN-270a.2 |
+|                                                                                            | Customer retention rate                                                                                                                                                              | Quantitative            | Rate                    | FN-IN-270a.3 |
+|                                                                                            | Description of approach to informing customers about products                                                                                                                        | Discussion and Analysis | n/a                     | FN-IN-270a.4 |
+| **Incorporation of Environmental, Social and Governance Factors in Investment Management** | Description of approach to incorporation of environmental, social and governance (ESG) factors in investment management processes and strategies                                     | Discussion and Analysis | n/a                     | FN-IN-410a.2 |
+| **Policies Designed to Incentivise Responsible Behaviour**                                 | Net premiums written related to energy efficiency and low carbon technology                                                                                                          | Quantitative            | Presentation currency   | FN-IN-410b.1 |
+|                                                                                            | Discussion of products or product features that incentivise health, safety or environmentally responsible actions or behaviours                                                      | Discussion and Analysis | n/a                     | FN-IN-410b.2 |
+| **Financed Emissions**                                                                     | Absolute gross financed emissions, disaggregated by (1) Scope 1, (2) Scope 2 and (3) Scope 3                                                                                         | Quantitative            | Metric tonnes (t) CO₂-e | FN-IN-410c.1 |
+|                                                                                            | Gross exposure for each industry by asset class                                                                                                                                      | Quantitative            | Presentation currency   | FN-IN-410c.2 |
+|                                                                                            | Percentage of gross exposure included in the financed emissions calculation                                                                                                          | Quantitative            | Percentage %            | FN-IN-410c.3 |
+|                                                                                            | Description of the methodology used to calculate financed emissions                                                                                                                  | Discussion and Analysis | n/a                     | FN-IN-410c.4 |
+
+### Notes:
+
+- **Note to FN-IN-270a.1**: The entity shall briefly describe the nature, context and any corrective actions because of monetary losses.
+```
