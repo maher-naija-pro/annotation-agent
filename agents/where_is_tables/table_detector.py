@@ -17,8 +17,7 @@ import fitz  # PyMuPDF
 # Add the parent directory to the path to import client modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-from client.llm_client import create_client, simple_query
-from client.config import get_all_config
+from client.llm_client import create_client, simple_query, get_config
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -108,23 +107,19 @@ def main():
     
     print(f"📁 Found {len(pdf_files)} PDF files")
     
-    # Setup LLM client - use same config as main.py
+    # Setup LLM client - use default configuration
     try:
-        # Use same Ollama configuration as main.py
-        config = {
-            'endpoint_url': 'http://localhost:11434/v1',
-            'model_name': 'gpt-oss:20b',  # Same model as main.py
-            'api_key': None
-        }
+        # Get configuration with default endpoint IP 148.253.83.132
+        config = get_config()
         llm_client = create_client(
             endpoint_url=config['endpoint_url'],
             model_name=config['model_name'],
             api_key=config['api_key']
         )
         model_name = config['model_name']
-        print(f"🤖 LLM Client ready: {model_name} (Local Ollama)")
+        print(f"🤖 LLM Client ready: {model_name} (Endpoint: {config['endpoint_url']})")
     except Exception as e:
-        print(f"⚠️  Local LLM not available: {e}")
+        print(f"⚠️  LLM not available: {e}")
         print("🔄 Using mock LLM for demonstration...")
         # Mock LLM for demonstration
         llm_client = None

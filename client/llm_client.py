@@ -112,14 +112,14 @@ def simple_query(client: OpenAI, model_name: str, prompt: str, **kwargs) -> str:
 
 def get_config() -> Dict[str, str]:
     """
-    Get configuration from environment variables with defaults.
+    Get configuration with default endpoint IP 148.253.83.132.
     
     Returns:
         Dict containing endpoint_url, model_name, and api_key
     """
     return {
-        'endpoint_url': os.getenv('LLM_ENDPOINT_URL', 'https://api.openai.com/v1'),
-        'model_name': os.getenv('LLM_MODEL_NAME', 'gpt-3.5-turbo'),
+        'endpoint_url': os.getenv('LLM_ENDPOINT_URL', 'http://148.253.83.132:11434/v1'),
+        'model_name': os.getenv('LLM_MODEL_NAME', 'gpt-oss:20b'),
         'api_key': os.getenv('OPENAI_API_KEY')
     }
 
@@ -147,7 +147,7 @@ def main():
     print(f"LLM Client initialized:")
     print(f"  Endpoint: {config['endpoint_url']}")
     print(f"  Model: {config['model_name']}")
-    print(f"  API Key: {'***' + config['api_key'][-4:] if config['api_key'] else 'Not set'}")
+    print(f"  API Key: {'***' + config['api_key'][-4:] if config['api_key'] else 'Not set (using default endpoint)'}")
     print()
     
     # Example 1: Simple query
