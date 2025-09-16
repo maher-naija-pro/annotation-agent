@@ -49,18 +49,16 @@ def setup_ollama_connection(model_name: str = "gpt-oss:20b") -> Dict[str, Any]:
 
 
 
-def run_single_query(connection_info: Dict[str, Any]):
+def run_single_query(connection_info: Dict[str, Any], prompt: str):
     """
     Run a single query with the Ollama model.
-    
+
     Args:
         connection_info: Dictionary containing client and config info
+        prompt: The prompt text to send to the model
     """
     print("Running single query...")
     print("-" * 40)
-    
-    # Single prompt - you can modify this as needed
-    prompt = "What is artificial intelligence?"
     
     print(f"Prompt: {prompt}")
     print("-" * 40)
@@ -100,7 +98,8 @@ def main():
         connection_vl = setup_ollama_connection("qwen2.5vl:32b")
 
         # Run single query
-        run_single_query(connection_gpt)
+        prompt = "What is artificial intelligence?"
+        run_single_query(connection_gpt, prompt)
 
     except Exception as e:
         print(f"Application error: {str(e)}")
