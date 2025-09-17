@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """
-PDF to Markdown Parser (Tables Only)
+PDF to Markdown Parser (Tables Only) - Image-based Processing
 
 Uses table_detector.py to find pages with tables in PDFs, then uses LLM (qwen2.5vl:32b)
-to parse ONLY those pages with tables into markdown format and saves each page as a separate file.
+with image analysis to parse ONLY those pages with tables into markdown format and saves each page as a separate file.
 
 This parser will:
 1. Detect which pages contain tables
-2. Process ONLY the pages that have tables
-3. Skip pages without tables entirely
+2. Convert pages with tables to images
+3. Use multimodal LLM to analyze images and extract content
+4. Process ONLY the pages that have tables
+5. Skip pages without tables entirely
+6. Clean up temporary image files
 
 Usage: python pdf_to_markdown_parser.py
 """
@@ -23,7 +26,7 @@ from datetime import datetime
 # Add the parent directory to the path to import client modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-from client.llm_client import create_client, simple_query, get_config
+from client.llm_client import create_client, simple_query, get_config, analyze_image, create_image_message, multimodal_chat_completion
 from agents.where_is_tables.table_detector import detect_tables_in_pdf
 
 # Configure logging
@@ -31,112 +34,95 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-def extract_page_as_image(pdf_path: Path, page_num: int) -> bytes:
+def extract_page_as_image(pdf_path: Path, page_num: int) -> str:
     """
-    Extract a specific page from PDF as image bytes for LLM processing.
+    Extract a specific page from PDF as image and save to temporary file for LLM processing.
     
     Args:
         pdf_path (Path): Path to the PDF file
         page_num (int): Page number (1-indexed)
         
     Returns:
-        bytes: Image data in PNG format
+        str: Path to the saved image file, or None if error
     """
     try:
         pdf_document = fitz.open(pdf_path)
         page = pdf_document[page_num - 1]  # Convert to 0-indexed
         
-        # Render page as image with high DPI for better quality
-        mat = fitz.Matrix(2.0, 2.0)  # 2x zoom for better quality
-        pix = page.get_pixmap(matrix=mat)
+        # Render page as image
+        pix = page.get_pixmap()
         img_data = pix.tobytes("png")
         
         pdf_document.close()
-        return img_data
+        
+        # Create temporary image file
+        temp_dir = Path("temp_images")
+        temp_dir.mkdir(exist_ok=True)
+        
+        # Create filename for the image
+        safe_pdf_name = pdf_path.stem.replace(' ', '_')
+        img_filename = f"{safe_pdf_name}_page_{page_num:03d}.png"
+        img_path = temp_dir / img_filename
+        
+        # Save image to file
+        with open(img_path, 'wb') as img_file:
+            img_file.write(img_data)
+        
+        logger.info(f"Saved page {page_num} as image: {img_path}")
+        return str(img_path)
         
     except Exception as e:
         logger.error(f"Error extracting page {page_num} as image: {e}")
         return None
 
 
-def parse_page_with_llm(llm_client, model_name: str, pdf_path: Path, page_num: int, img_data: bytes) -> str:
+def parse_page_with_llm(llm_client, model_name: str, pdf_path: Path, page_num: int, img_path: str) -> str:
     """
-    Use LLM to parse a PDF page (as image) into markdown format.
+    Parse a PDF page using LLM with image analysis.
     
     Args:
         llm_client: LLM client instance
         model_name (str): Name of the model to use
         pdf_path (Path): Path to the PDF file
-        page_num (int): Page number being processed
-        img_data (bytes): Image data of the page
+        page_num (int): Page number
+        img_path (str): Path to the image file of the page
         
     Returns:
         str: Markdown content of the page
     """
     try:
-        # Create a detailed prompt for the LLM
-        prompt = f"""Analyze this image from page {page_num} of PDF "{pdf_path.name}" and convert it to well-structured markdown format.
+        # Create a detailed prompt for image analysis
+        prompt = f"""Analyze this image from page {page_num} of PDF "{pdf_path.name}" and convert the table to well-structured markdown format.
 
-Please:
-1. Extract all text content accurately
-2. Identify and format tables using markdown table syntax
-3. Preserve the structure and hierarchy of the content
-4. Use appropriate markdown headers (#, ##, ###) for sections
-5. Format lists, bullet points, and numbered items properly
-6. Include any important visual elements or formatting cues
-7. If there are tables, make sure they are properly formatted with | separators
+This page contains ONLY a table. Please:
+1. Extract all text content from the table accurately
+2. Format the table using proper markdown table syntax with | separators
+3. Preserve the exact table structure, rows, and columns
+4. Maintain proper data alignment and spacing
+5. Include all table headers and data cells
+6. Handle merged cells appropriately in markdown format
+7. Ensure all text is readable and properly formatted
 
-Focus on accuracy and maintaining the original document structure. Return only the markdown content without any additional commentary."""
+Focus on table accuracy and structure. Return only the markdown table content without any additional commentary or headers."""
 
-        # For now, we'll use text extraction as fallback since the current LLM client
-        # doesn't support image input. In a real implementation, you'd need to modify
-        # the LLM client to support vision models.
-        
-        # Extract text as fallback
-        pdf_document = fitz.open(pdf_path)
-        page = pdf_document[page_num - 1]
-        text = page.get_text()
-        pdf_document.close()
-        
-        # Use LLM to structure the text into markdown
-        structured_prompt = f"""Convert this extracted text from page {page_num} of PDF "{pdf_path.name}" into well-structured markdown format:
-
-{text}
-
-Please:
-1. Structure the content with appropriate markdown headers
-2. Format any tables using markdown table syntax
-3. Use proper markdown formatting for lists, emphasis, etc.
-4. Maintain the logical flow and hierarchy of the original content
-5. Return only the markdown content without additional commentary."""
-
-        if llm_client is None:
-            # Mock response for demonstration
-            logger.warning("LLM client not available, using mock markdown conversion")
-            return f"# Page {page_num} from {pdf_path.name}\n\n```\n{text[:500]}...\n```\n\n*Note: This is a mock conversion. LLM client is not available.*"
-        
-        response = simple_query(
-            llm_client, 
-            model_name, 
-            structured_prompt, 
-            temperature=0.1, 
-            max_tokens=4000
-        )
-        
-        return response
+        # Use the new image analysis function
+        if img_path and os.path.exists(img_path):
+            logger.info(f"Using image analysis for page {page_num}")
+            response = analyze_image(
+                llm_client, 
+                model_name, 
+                img_path, 
+                prompt,
+                temperature=0.1, 
+                max_tokens=4000
+            )
+            return response
+        else:
+            logger.warning(f"Image file not found for page {page_num}, falling back to text extraction")
+            raise FileNotFoundError("Image file not available")
         
     except Exception as e:
         logger.error(f"Error parsing page {page_num} with LLM: {e}")
-        # Fallback to basic text extraction
-        try:
-            pdf_document = fitz.open(pdf_path)
-            page = pdf_document[page_num - 1]
-            text = page.get_text()
-            pdf_document.close()
-            return f"# Page {page_num} from {pdf_path.name}\n\n```\n{text}\n```"
-        except Exception as fallback_error:
-            logger.error(f"Fallback text extraction also failed: {fallback_error}")
-            return f"# Page {page_num} from {pdf_path.name}\n\n*Error: Could not extract content from this page.*"
 
 
 def save_markdown_page(content: str, pdf_name: str, page_num: int, output_dir: Path) -> Path:
@@ -199,25 +185,45 @@ def process_pdf_to_markdown(pdf_path: Path, llm_client, model_name: str, output_
     for page_num in pages_with_tables:
         logger.info(f"Processing page {page_num} (has tables)...")
         
-        # Extract page as image (for future vision model support)
-        img_data = extract_page_as_image(pdf_path, page_num)
+        # Extract page as image for LLM processing
+        img_path = extract_page_as_image(pdf_path, page_num)
         
-        # Parse page with LLM
-        markdown_content = parse_page_with_llm(llm_client, model_name, pdf_path, page_num, img_data)
+        # Parse page with LLM using image analysis
+        markdown_content = parse_page_with_llm(llm_client, model_name, pdf_path, page_num, img_path)
         
         # Save markdown file
         saved_file = save_markdown_page(markdown_content, pdf_path.name, page_num, output_dir)
         if saved_file:
             saved_files.append(saved_file)
+        
+        # Clean up temporary image file
+        if img_path and os.path.exists(img_path):
+            try:
+                os.remove(img_path)
+                logger.debug(f"Cleaned up temporary image: {img_path}")
+            except Exception as e:
+                logger.warning(f"Could not clean up temporary image {img_path}: {e}")
     
     logger.info(f"Processed {len(saved_files)} pages with tables from {pdf_path.name}")
     return saved_files
 
 
+def cleanup_temp_images():
+    """Clean up temporary images directory."""
+    temp_dir = Path("temp_images")
+    if temp_dir.exists():
+        try:
+            import shutil
+            shutil.rmtree(temp_dir)
+            logger.info("Cleaned up temporary images directory")
+        except Exception as e:
+            logger.warning(f"Could not clean up temporary images directory: {e}")
+
+
 def main():
     """Main function - PDF to Markdown conversion (only pages with tables)"""
-    print("📄 PDF to Markdown Parser - Tables Only")
-    print("=" * 45)
+    print("📄 PDF to Markdown Parser - Tables Only (Image-based)")
+    print("=" * 50)
     
     # Setup directories
     data_dir = Path("../../data")
@@ -287,6 +293,9 @@ def main():
             print(f"  📝 {file_path}")
     else:
         print("No pages with tables found in any PDF files.")
+    
+    # Clean up temporary images
+    cleanup_temp_images()
 
 
 if __name__ == "__main__":

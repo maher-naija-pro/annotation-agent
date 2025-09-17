@@ -1,0 +1,94 @@
+{
+  "file_path": "../../data-images/output_advanced/insurance-standard_en-gb/page_007.jpg",
+  "file_name": "page_007.jpg",
+  "processing_timestamp": "1758035541.695726",
+  "data": {
+    "title": "Sustainability Accounting Standard | Insurance",
+    "page_number": 7,
+    "tables": [
+      {
+        "table_number": 2,
+        "table_title": "Activity Metrics",
+        "headers": [
+          "TOPIC",
+          "METRIC",
+          "CATEGORY",
+          "UNIT OF MEASURE",
+          "CODE"
+        ],
+        "rows": [
+          {
+            "TOPIC": "Physical Risk Exposure",
+            "METRIC": "Probable Maximum Maximum Loss (PML) of insured products from weather-related natural catastrophes",
+            "CATEGORY": "Quantitative",
+            "UNIT OF MEASURE": "Presentation currency",
+            "CODE": "FN-IN-450a.1"
+          },
+          {
+            "TOPIC": "Physical Risk Exposure",
+            "METRIC": "Total amount of monetary losses attributable to insurance pay-outs from modelled natural catastrophes",
+            "CATEGORY": "Quantitative",
+            "UNIT OF MEASURE": "Presentation currency",
+            "CODE": "FN-IN-450a.1"
+          },
+          {
+            "TOPIC": "Physical Risk Exposure",
+            "METRIC": "Total amount of monetary losses attributable to insurance pay-outs from (1) modelled natural catastrophes and (2) non-modelled natural catastrophes, by type of event and geographical segment (net and gross of reinsurance)",
+            "CATEGORY": "Quantitative",
+            "UNIT OF MEASURE": "Presentation currency",
+            "CODE": "FN-IN-450a.2"
+          },
+          {
+            "TOPIC": "Physical Risk Exposure",
+            "METRIC": "Description of approach to incorporation of environmental risks into (1) the underwriting process for underwriting contracts and (2) the management for individual management of entity-level risks and capital adequacy",
+            "CATEGORY": "Discussion and Analysis",
+            "UNIT OF MEASURE": "n/a",
+            "CODE": "FN-IN-450a.3"
+          },
+          {
+            "TOPIC": "Systemic Risk Management",
+            "METRIC": "Exposure to derivative instruments by category: (1) total exposure to non-centrally cleared derivatives, (2) total fair value of acceptable collateral derivatives, (3) total exposure to centrally cleared derivatives",
+            "CATEGORY": "Quantitative",
+            "UNIT OF MEASURE": "Presentation currency",
+            "CODE": "FN-IN-550a.1"
+          },
+          {
+            "TOPIC": "Systemic Risk Management",
+            "METRIC": "Total fair value of centrally cleared securities lending collateral assets",
+            "CATEGORY": "Quantitative",
+            "UNIT OF MEASURE": "Presentation currency",
+            "CODE": "FN-IN-550a.2"
+          },
+          {
+            "TOPIC": "Systemic Risk Management",
+            "METRIC": "Description of approach to managing capital- and liquidity-related risks associated with liquidity systemic non-insurance activities",
+            "CATEGORY": "Discussion and Analysis",
+            "UNIT OF MEASURE": "n/a",
+            "CODE": "FN-IN-550a.3"
+          },
+          {
+            "TOPIC": "Activity Metrics",
+            "METRIC": "Number of policies in force, by segment: (1) property and casualty, (2) life, (3) assumed reinsurance",
+            "CATEGORY": "Quantitative",
+            "UNIT OF MEASURE": "Number",
+            "CODE": "FN-IN-000.A"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      {
+        "note_number": 2,
+        "text": "Note to FN-IN-450a.1 - The entity shall describe climate-related scenarios used, including the critical input parameters, assumptions, and choices, and time frames, in calculation of the PML."
+      },
+      {
+        "note_number": 3,
+        "text": "Note to FN-IN-450a.2 - The entity shall discuss how climate change-related impacts and variability of weather-related losses impact the cost of reinsurance and the entity's approach to transferring risk through reinsurance."
+      },
+      {
+        "note_number": 4,
+        "text": "Note to FN-IN-000.A - The entity additionally may disaggregate the number of policies in force by product line."
+      }
+    ]
+  }
+}

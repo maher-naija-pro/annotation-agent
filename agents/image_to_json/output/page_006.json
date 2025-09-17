@@ -1,0 +1,107 @@
+{
+  "file_path": "../../data-images/output_advanced/insurance-standard_en-gb/page_006.jpg",
+  "file_name": "page_006.jpg",
+  "processing_timestamp": "1758035541.6503103",
+  "data": {
+    "title": "SUSTAINABILITY DISCLOSURE DISCLOSURE TOPICS & METRICS",
+    "table": {
+      "name": "Table 1. Sustainability Disclosure Topics & Metrics",
+      "columns": [
+        "TOPIC", 
+        "METRIC",
+        "CATEGORY",
+        "UNIT OF MEASURE",
+        "CODE"
+      ],
+      "rows": [
+        {
+          "TOPIC": "Transparent Information Fair Information Advice for Customers",
+          "METRIC": "Total amount of monetary losses as a result of legal proceedings associated with marketing and communication of insurance product-related information to new and returning customers",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Presentation currency",
+          "CODE": "FN-IN-270a.1"
+        },
+        {
+          "TOPIC": "Transparent Information Fair Information Advice for Customers",
+          "METRIC": "Complaints-to-claims ratio",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Rate",
+          "CODE": "FN-IN-270a.2"
+        },
+        {
+          "TOPIC": "Transparent Information Fair Information Advice for Customers",
+          "METRIC": "Customer retention rate",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Rate",
+          "CODE": "FN-IN-270a.3"
+        },
+        {
+          "TOPIC": "Transparent Information Fair Information Advice for Customers",
+          "METRIC": "Description of approach to informing customers about products",
+          "CATEGORY": "Discussion and Analysis",
+          "UNIT OF MEASURE": "n/a",
+          "CODE": "FN-IN-270a.4"
+        },
+        {
+          "TOPIC": "Incorporation of Environmental, Social and Governance Factors in Investment Management",
+          "METRIC": "Description of approach to incorporation of environmental, social and governance (ESG) factors in investment and management processes and strategies",
+          "CATEGORY": "Discussion and Analysis",
+          "UNIT OF MEASURE": "n/a",
+          "CODE": "FN-IN-410a.2"
+        },
+        {
+          "TOPIC": "Policies Designed to Incentivise Responsible Behaviour",
+          "METRIC": "Net premiums written related to energy efficiency and low carbon technology",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Presentation currency",
+          "CODE": "FN-IN-410b.1"
+        },
+        {
+          "TOPIC": "Policies Designed to Incentivise Responsible Behaviour",
+          "METRIC": "Discussion of products or product features that incentivise health, safety, and environmentally responsible actions or behaviours",
+          "CATEGORY": "Discussion and Analysis",
+          "UNIT OF MEASURE": "n/a",
+          "CODE": "FN-IN-410b.2"
+        },
+        {
+          "TOPIC": "Financed Emissions",
+          "METRIC": "Absolute gross financed emissions, disaggregated by (1) Scope 1, (2) Scope 2, and (3) Scope 3",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Metric tonnes (t) CO2-e",
+          "CODE": "FN-IN-410c.1"
+        },
+        {
+          "TOPIC": "Financed Emissions",
+          "METRIC": "Gross exposure for each industry by asset class",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Presentation currency",
+          "CODE": "FN-IN-410c.2"
+        },
+        {
+          "TOPIC": "Financed Emissions",
+          "METRIC": "Percentage of gross exposure included in the financed emissions calculation",
+          "CATEGORY": "Quantitative",
+          "UNIT OF MEASURE": "Percentage %",
+          "CODE": "FN-IN-410c.3"
+        },
+        {
+          "TOPIC": "Financed Emissions",
+          "METRIC": "Description of the methodology used to calculate financed emissions",
+          "CATEGORY": "Discussion and Analysis",
+          "UNIT OF MEASURE": "n/a",
+          "CODE": "FN-IN-410c.4"
+        }
+      ]
+    },
+    "notes": [
+      {
+        "number": "1",
+        "text": "Note to FN-IN-270a.1: The entity shall briefly describe the nature, context, and any corrective actions because of monetary losses."
+      }
+    ],
+    "footer": {
+      "page_number": "6",
+      "standard": "SUSTAINABILITY ACCOUNTING STANDARD | INSURANCE"
+    }
+  }
+}
