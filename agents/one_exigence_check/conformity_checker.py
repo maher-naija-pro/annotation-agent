@@ -58,19 +58,45 @@ REQUIREMENT TO CHECK:
 RAPPORT DATA TO ANALYZE:
 {rapport_content}
 
-Please analyze the rapport data and check if it conforms to the given requirement. 
+Your task is to extract and structure regulatory compliance data from the rapport content according to the given requirement. 
 
-Provide your analysis in the following format:
-1. CONFORMITY STATUS: [CONFORM / NON-CONFORM / PARTIALLY CONFORM / INSUFFICIENT DATA]
-2. EVIDENCE: [Specific data points from the rapport that support your assessment]
-3. GAPS: [Any missing information or areas that don't meet the requirement]
-4. RECOMMENDATIONS: [Suggestions for improvement if needed]
+You must output your results in the following CSV format with these exact columns:
+
+CID,Industry,Topic,Metric,Code,Page,Heading or Fragment,Value,Unit,SASB Unit of Measurement,Complete
+
+COLUMN DEFINITIONS:
+
+1. Topic: The main topic category from the requirement
+2. Metric: The specific metric being measured from the requirement
+3. Code: The regulatory code reference from the requirement
+4. Heading or Fragment: The specific text fragment that contains the relevant information
+5. Value: The numerical value if applicable. Use "N/A" if no numerical value is present.
+6. Unit: The unit of measurement. Use "N/A" if no unit applies.
+7. SASB Unit of Measurement: The standardized SASB unit. Use "N/A" if not applicable.
+8. Complete: Boolean value indicating if the data extraction is complete ("TRUE" or "FALSE")
+
+EXTRACTION GUIDELINES:
+- Extract data that matches the requirement topic and metric
+- Preserve original text formatting including line breaks within cells
+- Use proper CSV escaping for commas and quotes
+- Extract numerical values exactly as they appear
+- Include units in the Value field when they appear with the number
+- Mark as "TRUE" when  unit and SASB Unit of Measurement are equal
+- Mark as "FALSE" when data is partial or missing key elements
+
+OUTPUT FORMAT:
+Start your response with the CSV header row, then provide the extracted data rows. If no relevant data is found, output only the header row.
+
+Example output:
+Topic,Metric,Code,Heading or Fragment,Value,Unit,SASB Unit of Measurement,Complete
+Financed Emissions,Absolute gross financed emissions,FN-IN-410c.1,8,"Les émissions induites totales s'élèvent à 3,472 millions de tonnes de CO2","3,472 millions",tonnes de CO2,tonnes de CO2,TRUE
 
 Focus on:
-- Whether the required data is present
+- Whether the required data is present in the rapport
 - If the data format and units match expectations
 - If the values are within acceptable ranges
 - Any missing or incomplete information
+- Proper CSV formatting and escaping
 """
     return prompt
 
@@ -150,9 +176,12 @@ def main():
     # Check conformity
     result = check_conformity(requirement_text)
     
-    print("CONFORMITY ANALYSIS RESULT:")
+    print("EXTRACTED DATA IN CSV FORMAT:")
     print("="*50)
     print(result)
+    print("\n" + "="*50)
+    print("Note: The output above should be in CSV format with columns:")
+    print("CID,Industry,Topic,Metric,Code,Page,Heading or Fragment,Value,Unit,SASB Unit of Measurement,Complete")
 
 
 if __name__ == "__main__":
