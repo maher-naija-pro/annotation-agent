@@ -88,7 +88,7 @@ EXTRACTION GUIDELINES:
 - Mark as "FALSE" when data is partial or missing key elements
 
 OUTPUT FORMAT:
-Start your response with the CSV header row, then provide the extracted data rows. If no relevant data is found, output only the header row.
+Start your response with the CSV extracted data rows. If no relevant data is found, output no data.
 
 Example output:
 Topic,Metric,Code,Heading or Fragment,Value,Unit,SASB Unit of Measurement,Complete

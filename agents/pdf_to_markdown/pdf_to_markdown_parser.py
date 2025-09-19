@@ -295,7 +295,7 @@ def main():
         print("No pages with tables found in any PDF files.")
     
     # Clean up temporary images
-    cleanup_temp_images()
+    #cleanup_temp_images()
 
 
 if __name__ == "__main__":
