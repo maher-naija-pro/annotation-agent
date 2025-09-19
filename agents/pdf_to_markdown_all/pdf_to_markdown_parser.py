@@ -233,7 +233,7 @@ def main():
     
     # Setup directories
     data_dir = Path("../../data")
-    output_dir = Path("../data-parsed")
+    output_dir = Path("./data-parsed")
     
     if not data_dir.exists():
         print(f"❌ Data directory not found: {data_dir}")
